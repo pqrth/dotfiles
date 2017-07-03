@@ -1,0 +1,62 @@
+antigen use oh-my-zsh
+
+# Antigen Bundles
+antigen bundles <<EOBUNDLES
+    zsh-users/zsh-syntax-highlighting
+    Tarrasch/zsh-autoenv
+    sudo
+    aws
+
+    # SSH Plugins
+    #ssh-agent
+    gko/ssh-connect
+
+    # Git Plugins
+    git
+    gitignore
+
+    # Java Plugins
+    mvn
+
+    # Ruby Plugins
+    rbenv
+    ruby
+    gem
+    bundler
+    rails
+    rake
+    rake-fast
+
+    # Node Plugins
+    coffee
+    node
+    npm
+    lukechilds/zsh-better-npm-completion
+
+    # Python Plugins
+    autopep8
+    pep8
+    pip
+    pylint
+    python
+    virtualenvwrapper
+
+    # Docker
+    docker
+    docker-compose
+EOBUNDLES
+
+# OS specific plugins
+if [[ $CURRENT_OS == 'OS X' ]]; then
+    antigen bundle osx
+    antigen bundle brew-cask
+elif [[ $CURRENT_OS == 'Linux' ]]; then
+    if [[ $DISTRO == 'CentOS' ]]; then
+    fi
+elif [[ $CURRENT_OS == 'Cygwin' ]]; then
+fi
+
+# Antigen Theme
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
+antigen apply
