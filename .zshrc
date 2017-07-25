@@ -47,6 +47,27 @@ if [[ -d "/usr/local/share/zsh-completions" ]]; then
 fi
 
 #
+# Setup environment variables
+#
+
+# PATH setup
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="/usr/local/share/npm/bin:$PATH"
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+export GOPATH=$HOME/golang
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
+# Virtualenvwrapper setup
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/repos
+
+#
 # Antigen
 #
 
@@ -64,17 +85,24 @@ antigen init $HOME/.antigenrc
 
 # User configuration
 
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/bin:$PATH"
-export PATH="/usr/local/share/npm/bin:$PATH"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
+
+init_env(){
+  # expects to be called as: init_env pyenv
+  if which $1 > /dev/null
+  then eval "$($1 init -)"
+  fi
+}
+init_env rbenv
+init_env jenv
+if which pyenv > /dev/null; then
+  eval "$(pyenv init -)"
+  pyenv virtualenvwrapper;
+fi
 
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
@@ -84,10 +112,4 @@ gpip(){
    PIP_REQUIRE_VIRTUALENV="" pip "$@"
 }
 
-# Virtualenvwrapper setup
-# export PROJECT_HOME=$HOME/repos
-
 test -e ${HOME}/.iterm2_shell_integration.`basename $SHELL` && source ${HOME}/.iterm2_shell_integration.`basename $SHELL`
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"

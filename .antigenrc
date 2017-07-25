@@ -39,7 +39,7 @@ antigen bundles <<EOBUNDLES
     pip
     pylint
     python
-    virtualenvwrapper
+    pyenv
 
     # Docker
     docker
