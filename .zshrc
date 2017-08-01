@@ -55,12 +55,9 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+COREUTILS_PATH=$(brew --prefix coreutils)
+export PATH="$COREUTILS_PATH/libexec/gnubin:/usr/local/bin:$PATH"
+export MANPATH="$COREUTILS_PATH/libexec/gnuman:$MANPATH"
 
 # Virtualenvwrapper setup
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
@@ -99,6 +96,7 @@ init_env(){
 }
 init_env rbenv
 init_env jenv
+init_env goenv
 if which pyenv > /dev/null; then
   eval "$(pyenv init -)"
   pyenv virtualenvwrapper;
@@ -111,5 +109,9 @@ export PIP_REQUIRE_VIRTUALENV=true
 gpip(){
    PIP_REQUIRE_VIRTUALENV="" pip "$@"
 }
+
+# https://gist.github.com/quickshiftin/9130153
+# GNU manpages for programs that are GNU ones, and fallback to OSX manpages otherwise
+alias man='_() { echo $1; man -M $COREUTILS_PATH/libexec/gnuman $1 1>/dev/null 2>&1;  if [ "$?" -eq 0 ]; then man -M $COREUTILS_PATH/libexec/gnuman $1; else man $1; fi }; _'
 
 test -e ${HOME}/.iterm2_shell_integration.`basename $SHELL` && source ${HOME}/.iterm2_shell_integration.`basename $SHELL`
