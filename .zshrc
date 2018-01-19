@@ -14,7 +14,7 @@ test -f $HOME/.secret && source $HOME/.secret
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vi'
 else
-  export EDITOR='subl -w'
+  export EDITOR='subl'
 fi
 
 #
@@ -109,9 +109,5 @@ export PIP_REQUIRE_VIRTUALENV=true
 gpip(){
    PIP_REQUIRE_VIRTUALENV="" pip "$@"
 }
-
-# https://gist.github.com/quickshiftin/9130153
-# GNU manpages for programs that are GNU ones, and fallback to OSX manpages otherwise
-alias man='_() { echo $1; man -M $COREUTILS_PATH/libexec/gnuman $1 1>/dev/null 2>&1;  if [ "$?" -eq 0 ]; then man -M $COREUTILS_PATH/libexec/gnuman $1; else man $1; fi }; _'
 
 test -e ${HOME}/.iterm2_shell_integration.`basename $SHELL` && source ${HOME}/.iterm2_shell_integration.`basename $SHELL`
