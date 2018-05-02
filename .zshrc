@@ -64,6 +64,10 @@ export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/repos
 
+# Environment Switching setup
+export RBENV_ROOT=$HOME/.rbenv
+export PYENV_ROOT=$HOME/.pyenv
+
 #
 # Antigen
 #
