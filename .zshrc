@@ -94,7 +94,6 @@ init_env(){
   then eval "$($1 init -)"
   fi
 }
-init_env rbenv
 init_env jenv
 init_env goenv
 if which pyenv > /dev/null; then
