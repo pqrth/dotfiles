@@ -59,11 +59,6 @@ COREUTILS_PATH=$(brew --prefix coreutils)
 export PATH="$COREUTILS_PATH/libexec/gnubin:/usr/local/bin:$PATH"
 export MANPATH="$COREUTILS_PATH/libexec/gnuman:$MANPATH"
 
-# Virtualenvwrapper setup
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/repos
-
 # Environment Switching setup
 export RBENV_ROOT=$HOME/.rbenv
 export PYENV_ROOT=$HOME/.pyenv
@@ -100,10 +95,6 @@ init_env(){
 }
 init_env jenv
 init_env goenv
-if which pyenv > /dev/null; then
-  eval "$(pyenv init -)"
-  pyenv virtualenvwrapper;
-fi
 
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
