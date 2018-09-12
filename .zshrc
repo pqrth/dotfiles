@@ -59,6 +59,9 @@ COREUTILS_PATH=$(brew --prefix coreutils)
 export PATH="$COREUTILS_PATH/libexec/gnubin:/usr/local/bin:$PATH"
 export MANPATH="$COREUTILS_PATH/libexec/gnuman:$MANPATH"
 
+# Adds erlang's man pages
+export MANPATH=/usr/local/opt/erlang/lib/erlang/man:$MANPATH
+
 # Environment Switching setup
 export RBENV_ROOT=$HOME/.rbenv
 export PYENV_ROOT=$HOME/.pyenv
