@@ -1,3 +1,5 @@
+export TERM="xterm-256color"
+
 # For sudo-ing aliases
 # https://wiki.archlinux.org/index.php/Sudo#Passing_aliases
 alias sudo='sudo '
@@ -108,3 +110,6 @@ gpip(){
 }
 
 test -e ${HOME}/.iterm2_shell_integration.`basename $SHELL` && source ${HOME}/.iterm2_shell_integration.`basename $SHELL`
+
+# Employment-specific
+test -f $HOME/.employment && source $HOME/.employment
