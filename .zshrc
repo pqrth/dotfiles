@@ -57,6 +57,7 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 COREUTILS_PATH=$(brew --prefix coreutils)
 export PATH="$COREUTILS_PATH/libexec/gnubin:/usr/local/bin:$PATH"
 export MANPATH="$COREUTILS_PATH/libexec/gnuman:$MANPATH"
