@@ -2,10 +2,11 @@ antigen use oh-my-zsh
 
 # Antigen Bundles
 antigen bundles <<EOBUNDLES
+    # Zsh Plugins
     zsh-users/zsh-syntax-highlighting
     Tarrasch/zsh-autoenv
     sudo
-    aws
+    thefuck
 
     # SSH Plugins
     ssh-agent
@@ -16,6 +17,7 @@ antigen bundles <<EOBUNDLES
     gitignore
 
     # Java Plugins
+    ant
     mvn
 
     # Ruby Plugins
@@ -44,6 +46,9 @@ antigen bundles <<EOBUNDLES
     # Docker
     docker
     docker-compose
+
+    # Misc
+    aws
 EOBUNDLES
 
 # OS specific plugins
