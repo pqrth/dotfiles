@@ -8,7 +8,7 @@ antigen bundles <<EOBUNDLES
     aws
 
     # SSH Plugins
-    #ssh-agent
+    ssh-agent
     gko/ssh-connect
 
     # Git Plugins
