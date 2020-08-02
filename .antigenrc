@@ -52,7 +52,7 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # OS specific plugins
-if [[ $CURRENT_OS == 'OS X' ]]; then
+if [[ $CURRENT_OS == 'macOS' ]]; then
     antigen bundle osx
     antigen bundle brew-cask
 elif [[ $CURRENT_OS == 'Linux' ]]; then

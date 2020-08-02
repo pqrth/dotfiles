@@ -30,7 +30,7 @@ CURRENT_OS='Linux'
 DISTRO=''
 
 if [[ $UNAME == 'Darwin' ]]; then
-    CURRENT_OS='OS X'
+    CURRENT_OS='macOS'
 else
     # Must be Linux, determine distro
     if [[ -f /etc/redhat-release ]]; then
