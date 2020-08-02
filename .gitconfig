@@ -6,7 +6,8 @@
 [core]
 	# Use custom `.gitignore`
 	excludesfile = ~/.gitignore
-	editor = subl -w
+	pager = less -FMRiX
+	editor = code --new-window --wait
 
 [color]
 	# Use colors in Git commands that are capable of colored output when outputting to the terminal
