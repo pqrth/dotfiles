@@ -62,6 +62,6 @@ elif [[ $CURRENT_OS == 'Cygwin' ]]; then
 fi
 
 # Antigen Theme
-antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme romkatv/powerlevel10k
 
 antigen apply
