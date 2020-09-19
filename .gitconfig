@@ -38,3 +38,6 @@
 	autoStash = true
 [pull]
 	rebase = true
+
+[diff]
+	algorithm = histogram
