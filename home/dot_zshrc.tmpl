@@ -1,0 +1,138 @@
+export TERM="xterm-256color"
+
+# For sudo-ing aliases
+# https://wiki.archlinux.org/index.php/Sudo#Passing_aliases
+alias sudo='sudo '
+
+# Ensure languages are set
+export LANG=en_GB.UTF-8
+export LANGUAGE=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
+
+# Secrets
+test -f $HOME/.secret && source $HOME/.secret
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vi'
+else
+  export EDITOR='subl'
+fi
+
+#
+# OS Detection
+#
+
+UNAME=`uname`
+
+# Fallback info
+CURRENT_OS='Linux'
+DISTRO=''
+
+if [[ $UNAME == 'Darwin' ]]; then
+    CURRENT_OS='macOS'
+else
+    # Must be Linux, determine distro
+    if [[ -f /etc/redhat-release ]]; then
+        # CentOS or Redhat?
+        if grep -q "CentOS" /etc/redhat-release; then
+            DISTRO='CentOS'
+        else
+            DISTRO='RHEL'
+        fi
+    fi
+fi
+
+init_env(){
+  # expects to be called as: init_env pyenv
+  if which $1 > /dev/null
+  then eval "$($1 init -)"
+  fi
+}
+# init_env jenv
+init_env goenv
+
+#
+# Setup environment variables
+#
+
+# PATH setup
+export PATH="{{ .brewPrefix }}/sbin:$PATH"
+export PATH="{{ .brewPrefix }}/bin:$PATH"
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$(brew --prefix npm)/bin:$PATH"
+export PATH="$(brew --prefix sqlite)/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Disabled while maintaining commands in both arm64 & x86_64
+# COREUTILS_PATH=$(brew --prefix coreutils)
+# export PATH="$COREUTILS_PATH/libexec/gnubin:$PATH"
+# export MANPATH="$COREUTILS_PATH/libexec/gnuman:$MANPATH"
+
+# Adds erlang's man pages
+export MANPATH=$(brew --prefix erlang)/lib/erlang/man:$MANPATH
+
+# Environment Switching setup
+# export RBENV_ROOT=$HOME/.rbenv
+# export PYENV_ROOT=$HOME/.pyenv
+# export PATH="$HOME/.pyenv/shims:$PATH"
+
+#
+# Antidote
+#
+
+autoload -Uz compinit
+compinit -u
+
+# Oh My Zsh plugins (via Antidote) expect ZSH_CACHE_DIR; if unset, paths become /completions/... under /
+: "${ZSH_CACHE_DIR:=$HOME/Library/Caches/zsh}"
+[[ -d $ZSH_CACHE_DIR/completions ]] || mkdir -p -- "$ZSH_CACHE_DIR/completions"
+
+source {{ .brewPrefix }}/opt/antidote/share/antidote/antidote.zsh
+
+# Static load Antidote plugins
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins.zsh
+if [[ ! -f $zsh_plugins || $zsh_plugins.txt -nt $zsh_plugins ]]; then
+  antidote bundle <${ZDOTDIR:-$HOME}/.zsh_plugins.txt >$zsh_plugins
+fi
+source $zsh_plugins
+
+# eval "$(starship init zsh)"
+
+# User configuration
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
+
+eval "$(mise activate zsh)"
+
+# Use zsh-completions if it exists
+ZSH_COMPLETIONS_PATH=$(brew --prefix zsh-completions)
+if [[ -d "$ZSH_COMPLETIONS_PATH/share/zsh-completions" ]]; then
+    fpath=($ZSH_COMPLETIONS_PATH/share/zsh-completions $fpath)
+fi
+
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+
+# use `gpip` to use global pip
+gpip(){
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+test -e ${HOME}/.iterm2_shell_integration.`basename $SHELL` && source ${HOME}/.iterm2_shell_integration.`basename $SHELL`
+
+alias ls="eza"
+alias ack="ag"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:{{ .chezmoi.homeDir }}/.lmstudio/bin"
+# End of LM Studio CLI section
+
+# Powerlevel10k prompt config
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

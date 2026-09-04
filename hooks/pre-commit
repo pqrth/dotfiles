@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# Refuses commits whose staged content carries a credential.
+#
+# The source state is generated from a live machine, so a careless
+# `chezmoi add` or `chezmoi re-add` can pull a secret into the repo. Git
+# identity is meant to live in ~/.config/chezmoi/chezmoi.toml, and ~/.secret
+# is meant to stay untracked; this is the backstop for when it doesn't.
+#
+# Enable with: git config core.hooksPath hooks
+
+set -eu
+
+PATTERN='ghp_|github_pat_|AKIA|sk-|BEGIN .* PRIVATE KEY'
+
+# This file is excluded from its own scan: the line above is the one place
+# these literals are supposed to appear, and without the exclusion the hook
+# would reject the commit that introduces it.
+#
+# --no-ext-diff matters: this repo sets diff.external = difft, and difftastic
+# output has no +/- line prefixes for the greps below to match.
+hits=$(git diff --cached --no-ext-diff --no-color -U0 --diff-filter=ACM \
+         -- . ':(exclude)hooks/pre-commit' |
+       grep -E '^\+' |
+       grep -Ev '^\+\+\+' |
+       grep -En "$PATTERN" || true)
+
+if [ -n "$hits" ]; then
+  echo "pre-commit: refusing to commit — staged content looks like a credential:" >&2
+  echo "$hits" | cut -c1-120 >&2
+  echo >&2
+  echo "Unstage it, or bypass deliberately with: git commit --no-verify" >&2
+  exit 1
+fi
+
+exit 0

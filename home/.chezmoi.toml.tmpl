@@ -1,0 +1,15 @@
+{{- $name       := promptStringOnce . "name"       "Git author name" -}}
+{{- $email      := promptStringOnce . "email"      "Git author email" -}}
+{{- $signingkey := promptStringOnce . "signingkey" "SSH signing key (public key line)" -}}
+
+# Pin the source state to the working repo rather than ~/.local/share/chezmoi.
+sourceDir = {{ (joinPath .chezmoi.homeDir "repos" "pqrth" "dotfiles") | quote }}
+
+[data]
+    # Git identity. Lives here, outside the repo, so it never gets committed.
+    name       = {{ $name       | quote }}
+    email      = {{ $email      | quote }}
+    signingkey = {{ $signingkey | quote }}
+
+    # Homebrew moved to /opt/homebrew on Apple silicon; Intel Macs keep /usr/local.
+    brewPrefix = {{ ternary "/opt/homebrew" "/usr/local" (eq .chezmoi.arch "arm64") | quote }}

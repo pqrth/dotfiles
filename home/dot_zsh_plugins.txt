@@ -1,0 +1,64 @@
+# .zsh_plugins.txt — antidote plugin file
+#
+# Static load (recommended — generate once, source the output):
+#   antidote bundle <~/.zsh_plugins.txt >~/.zsh_plugins.zsh
+# Dynamic load (simpler, slower):
+#   antidote load
+
+# ── oh-my-zsh library ─────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:lib
+
+# ── Zsh plugins ───────────────────────────────────────────────────────────────
+zsh-users/zsh-syntax-highlighting
+Tarrasch/zsh-autoenv
+
+# ── oh-my-zsh: shell utilities ───────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/sudo
+#ohmyzsh/ohmyzsh path:plugins/thefuck
+
+# ── oh-my-zsh: SSH ───────────────────────────────────────────────────────────
+#ohmyzsh/ohmyzsh path:plugins/ssh-agent
+gko/ssh-connect
+
+# ── oh-my-zsh: Git ───────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/gitignore
+
+# ── oh-my-zsh: Java ──────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/ant
+ohmyzsh/ohmyzsh path:plugins/mvn
+
+# ── oh-my-zsh: Ruby ──────────────────────────────────────────────────────────
+#ohmyzsh/ohmyzsh path:plugins/rbenv
+ohmyzsh/ohmyzsh path:plugins/ruby
+ohmyzsh/ohmyzsh path:plugins/gem
+ohmyzsh/ohmyzsh path:plugins/bundler
+#ohmyzsh/ohmyzsh path:plugins/rails
+ohmyzsh/ohmyzsh path:plugins/rake
+ohmyzsh/ohmyzsh path:plugins/rake-fast
+
+# ── oh-my-zsh: Node ──────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/node
+ohmyzsh/ohmyzsh path:plugins/npm
+lukechilds/zsh-better-npm-completion
+
+# ── oh-my-zsh: Python ────────────────────────────────────────────────────────
+#ohmyzsh/ohmyzsh path:plugins/autopep8
+#ohmyzsh/ohmyzsh path:plugins/pep8
+ohmyzsh/ohmyzsh path:plugins/pip
+ohmyzsh/ohmyzsh path:plugins/pylint
+ohmyzsh/ohmyzsh path:plugins/python
+#ohmyzsh/ohmyzsh path:plugins/pyenv
+
+# ── oh-my-zsh: Docker ────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/docker-compose
+
+# ── oh-my-zsh: Cloud ─────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/aws
+
+# ── oh-my-zsh: macOS ─────────────────────────────────────────────────────────
+ohmyzsh/ohmyzsh path:plugins/macos
+
+# ── Theme (load last) ─────────────────────────────────────────────────────────
+romkatv/powerlevel10k

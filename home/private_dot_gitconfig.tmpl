@@ -1,3 +1,8 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+	signingkey = {{ .signingkey }}
+
 [alias]
 	# Pretty log output
 	hist = log --graph --pretty=format:'%Cred%h%Creset %s%C(yellow)%d%Creset %Cgreen(%cr)%Creset [%an]' --abbrev-commit --date=relative
@@ -6,8 +11,8 @@
 [core]
 	# Use custom `.gitignore`
 	excludesfile = ~/.gitignore
-	pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -FMRiX
-	editor = code --new-window --wait
+	pager = delta
+	editor = subl -w
 
 [color]
 	# Use colors in Git commands that are capable of colored output when outputting to the terminal
@@ -41,3 +46,19 @@
 
 [diff]
 	algorithm = histogram
+	external = difft
+
+[credential]
+	helper = osxkeychain
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = {{ .chezmoi.homeDir }}/.ssh/allowed_signers
+# [commit]
+# 	gpgsign = true
